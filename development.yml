@@ -1,0 +1,17 @@
+all:
+  hosts:
+    localhost
+  vars:
+    ansible_connection: ssh
+
+apt:
+  hosts:
+    localhost
+
+flatpak:
+  hosts:
+    localhost
+
+adguard:
+  hosts:
+    localhost

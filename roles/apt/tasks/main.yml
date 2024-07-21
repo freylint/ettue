@@ -1,0 +1,8 @@
+---
+
+- name: Update Apt packages
+  ansible.builtin.apt:
+    update_cache: yes
+    name: "*"
+    state: latest
+  become: true

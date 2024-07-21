@@ -1,0 +1,37 @@
+---
+
+- name: Ensure existence of ADGuard working directory
+  file:
+    path: /opt/adguardhome/work
+    state: directory
+  become: true
+
+- name: Ensure existence of ADGuard config directory
+  file:
+    path: /opt/adguardhome/conf
+    state: directory
+  become: true
+
+- name: Start AdGuard Server
+  community.docker.docker_container:
+    name: adguard
+    image: adguard/adguardhome
+    restart: yes
+    network_mode: host
+    mounts:
+      - source: "/opt/adguardhome/work"
+        target: /opt/adguardhome/work
+        read_only: no
+        type: bind
+      - source: "/opt/adguardhome/conf"
+        target: /opt/adguardhome/conf
+        read_only: no
+        type: bind
+    exposed_ports:
+      - "53"
+      - "53/udp"
+      - "80"
+      - "443"
+      - "443/udp"
+      - "3000"
+      
