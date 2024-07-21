@@ -1,0 +1,7 @@
+container_name: ddclient
+PUID: 1000
+PGID: 1000
+TZ: "Etc/UTC"
+cfg_path: /config
+restart_policy: yes
+image: lscr.io/linuxserver/ddclient:latest

@@ -1,0 +1,24 @@
+---
+
+- name: Ensure config directory exists
+  file:
+    path: /config
+    state: directory
+  become: true
+    
+
+- name: Ensure DynDNS is running (DDClient)
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image }}"
+    state: started
+    restart: "{{ restart_policy }}"
+    env:
+      TZ: "{{TZ}}"
+      PUID: "0"
+      PGID: "0"
+    mounts:
+      - source: "{{ cfg_path }}"
+        target: /etc/ddclient/
+        read_only: yes
+        type: bind
