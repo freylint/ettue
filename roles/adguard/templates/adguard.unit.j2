@@ -1,0 +1,13 @@
+[Unit]
+Description=Start {{ container_name }} container
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+Restart={{ restart_policy }}
+
+ExecStart=/usr/bin/docker start {{ container_name }}
+
+[Install]
+WantedBy=multi-user.target
