@@ -1,5 +1,11 @@
 ---
 
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
+  become: true
+
 - name: Ensure existence of ADGuard working directory
   file:
     path: /opt/adguardhome/work
@@ -12,10 +18,11 @@
     state: directory
   become: true
 
-- name: Start AdGuard Server
+- name: Ensure AdGuard Server is running
   community.docker.docker_container:
     name: adguard
     image: adguard/adguardhome
+    state: present
     restart: yes
     network_mode: host
     mounts:
