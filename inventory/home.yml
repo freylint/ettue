@@ -15,3 +15,7 @@ flatpak:
 adguard:
   hosts:
     nas.lan:
+
+dyndns:
+  hosts:
+    nas.lan:
