@@ -14,3 +14,8 @@
   hosts: adguard
   roles:
     - role: roles/adguard/
+
+- name: Update DynDNS Service
+  hosts: dyndns
+  roles:
+    - role: roles/dyndns/
