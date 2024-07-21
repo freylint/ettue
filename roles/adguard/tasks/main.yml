@@ -20,10 +20,10 @@
 
 - name: Ensure AdGuard Server is running
   community.docker.docker_container:
-    name: adguard
+    name: "{{ container_name }}"
     image: adguard/adguardhome
     state: present
-    restart: yes
+    restart: "{{ restart_policy }}"
     network_mode: host
     mounts:
       - source: "/opt/adguardhome/work"
