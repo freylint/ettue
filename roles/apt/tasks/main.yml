@@ -1,8 +1,9 @@
 ---
 
-- name: Update Apt packages
+- name: Update APT packages
   ansible.builtin.apt:
     update_cache: yes
+    autoremove: yes
     name: "*"
     state: latest
   become: true
