@@ -1,6 +1,16 @@
 ---
 
-- hosts: all
+- name: Update APT Machines
+  hosts: apt
   roles:
     - apt
+  
+- name: Update Flatpak Machines
+  hosts: flatpak
+  roles:
+    - flatpak
+
+- name: Update DNS Server
+  hosts: adguard
+  roles:
     - adguard
