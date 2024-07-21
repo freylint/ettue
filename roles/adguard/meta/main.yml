@@ -1,0 +1,4 @@
+---
+name: ADGuard Home
+dependencies:
+  - docker

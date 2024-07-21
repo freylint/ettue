@@ -1,11 +1,5 @@
 ---
 
-- name: Ensure docker daemon is running
-  service:
-    name: docker
-    state: started
-  become: true
-
 - name: Ensure existence of ADGuard working directory
   file:
     path: /opt/adguardhome/work
