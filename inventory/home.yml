@@ -12,6 +12,10 @@ flatpak:
   hosts:
     glw.lan:
 
+hardened:
+  hosts:
+    nas.lan:
+
 adguard:
   hosts:
     nas.lan:

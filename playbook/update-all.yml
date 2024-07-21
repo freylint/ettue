@@ -10,6 +10,11 @@
   roles:
     - role: roles/flatpak/
 
+- name: Update hardening
+  hosts: hardened
+  roles:
+    - role: roles/hardened/
+
 - name: Update DNS Server
   hosts: adguard
   roles:
