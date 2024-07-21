@@ -1,0 +1,17 @@
+all:
+  hosts:
+    nas.lan
+    glw.lan
+
+apt:
+  hosts:
+    nas.lan
+    glw.lan
+
+flatpak:
+  hosts:
+    glw.lan
+
+adguard:
+  hosts:
+    nas.lan
