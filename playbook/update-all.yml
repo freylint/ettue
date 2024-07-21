@@ -10,11 +10,6 @@
   roles:
     - role: roles/flatpak/
 
-- name: Update Debian end nodes
-  hosts: host-nix
-  roles:
-    - role: roles/host-nix
-
 - name: Update DNS Server
   hosts: adguard
   roles:
