@@ -2,13 +2,13 @@
 
 - name: Ensure existence of ADGuard working directory
   file:
-    path: /opt/adguardhome/work
+    path: "{{ work_dir }}"
     state: directory
   become: true
 
 - name: Ensure existence of ADGuard config directory
   file:
-    path: /opt/adguardhome/conf
+    path: "{{ conf_dir }}"
     state: directory
   become: true
 
@@ -20,11 +20,11 @@
     restart: "{{ restart_policy }}"
     network_mode: host
     mounts:
-      - source: "/opt/adguardhome/work"
+      - source: "{{ work_dir }}"
         target: /opt/adguardhome/work
         read_only: no
         type: bind
-      - source: "/opt/adguardhome/conf"
+      - source: "{{ conf_dir }}"
         target: /opt/adguardhome/conf
         read_only: no
         type: bind

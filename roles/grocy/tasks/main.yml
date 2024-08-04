@@ -2,7 +2,7 @@
 
 - name: Ensure config directory exists
   file:
-    path: /config
+    path: /config/grocy
     state: directory
   become: true
     

@@ -1,2 +1,4 @@
 container_name: adguard
 restart_policy: yes
+conf_dir: /config/adguardhome/conf
+work_dir: /config/adguardhome/work
