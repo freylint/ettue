@@ -1,0 +1,4 @@
+---
+name: Grocy
+dependencies:
+  - docker

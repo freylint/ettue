@@ -24,3 +24,8 @@
   hosts: dyndns
   roles:
     - role: roles/dyndns/
+
+- name: Update Grocy
+  hosts: grocy
+  roles:
+   - role: roles/grocy

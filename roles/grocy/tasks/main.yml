@@ -1,0 +1,26 @@
+---
+
+- name: Ensure config directory exists
+  file:
+    path: /config
+    state: directory
+  become: true
+    
+
+- name: Ensure Grocy is running
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image }}"
+    state: started
+    restart: "{{ restart_policy }}"
+    env:
+      TZ: "{{TZ}}"
+      PUID: "1000"
+      PGID: "1000"
+    ports:
+     - "8080:80"
+    mounts:
+      - source: "{{ cfg_path }}"
+        target: /config
+        read_only: no
+        type: bind

@@ -23,3 +23,7 @@ adguard:
 dyndns:
   hosts:
     nas.lan:
+
+grocy:
+  hosts:
+    nas.lan:
