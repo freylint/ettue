@@ -27,3 +27,7 @@ dyndns:
 grocy:
   hosts:
     nas.lan:
+
+revproxy:
+  hosts:
+    nas.lan:

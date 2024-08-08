@@ -1,0 +1,37 @@
+---
+
+- name: Ensure existence of NGinx data directory
+  file:
+    path: "{{ data_dir }}"
+    state: directory
+  become: true
+
+- name: Ensure existence of NGinx letsencrypt directory
+  file:
+    path: "{{ letsencrypt_dir }}"
+    state: directory
+  become: true
+
+- name: Ensure Reverse Proxy Server is running
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image }}"
+    state: present
+    restart: "{{ restart_policy }}"
+    mounts:
+      - source: "{{ data_dir }}"
+        target: /data
+        read_only: no
+        type: bind
+      - source: "{{ letsencrypt_dir }}"
+        target: /etc/letsencrypt
+        read_only: no
+        type: bind
+    expose:
+      - "80"
+      - "81"
+      - "443"
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"

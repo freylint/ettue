@@ -10,10 +10,15 @@
   roles:
     - role: roles/flatpak/
 
-- name: Update hardening
+- name: Update Hardening
   hosts: hardened
   roles:
     - role: roles/hardened/
+
+- name: Update Reverse Proxy
+  hosts: revproxy
+  roles:
+    - roles/revproxy
 
 - name: Update DNS Server
   hosts: adguard
