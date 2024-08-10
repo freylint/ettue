@@ -1,0 +1,9 @@
+---
+
+- name: Update Homelab Igntion config
+  fetch:
+    src: /tmp/nas.ign
+    dest: /www/ignition/
+    flat: true
+    host: 192.168.1.190
+    force: yes

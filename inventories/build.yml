@@ -4,6 +4,6 @@ all:
   vars:
     ansible_connection: ssh
 
-build:
+build_server:
   hosts:
-    localhost:
+    gdw.lan:

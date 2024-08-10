@@ -1,6 +1,6 @@
 
 ANSIBLE_PLAYBOOK=ansible-playbook
-ANSIBLE_FLAGS=-K
+ANSIBLE_FLAGS=-Kv
 PLAYBOOKS_DIR=playbooks
 INVENTORIES_DIR=inventories
 

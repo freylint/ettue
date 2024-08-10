@@ -1,6 +1,0 @@
----
-- name: Ensure docker daemon is running
-  service:
-    name: docker
-    state: started
-  become: true

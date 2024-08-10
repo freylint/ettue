@@ -1,0 +1,19 @@
+variant: fcos
+version: 1.5.0
+storage:
+  files:
+    - path: /etc/containers/systemd/hello.container
+      contents:
+        inline: |
+          [Unit]
+          Description=Hello Service
+          Wants=network-online.target
+          After=network-online.target
+
+          [Container]
+          ContainerName=busybox1
+          Image=docker.io/busybox
+          Exec=/bin/sh -c "trap 'exit 0' INT TERM; while true; do echo Hello World; sleep 1; done"
+
+          [Install]
+          WantedBy=multi-user.target

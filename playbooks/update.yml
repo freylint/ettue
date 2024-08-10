@@ -1,21 +1,16 @@
 ---
 
-- name: Update APT Machines
-  hosts: apt
+- name: Build Igntion file for CoreOS Server
+  hosts: build_server
   roles:
-    - role: roles/apt/
-  
-- name: Update Flatpak Machines
-  hosts: flatpak
-  roles:
-    - role: roles/flatpak/
+    - roles/workstation/
 
-- name: Update Hardening
-  hosts: hardened
+- name: Update Igntion file on PXE Server
+  hosts: router
   roles:
-    - role: roles/hardened/
+    - roles/router/
 
-- name: Update DynDNS Service
-  hosts: dyndns
+- name: Restart homelab
+  hosts: homelab
   roles:
-    - role: roles/dyndns/
+    - roles/homelab/

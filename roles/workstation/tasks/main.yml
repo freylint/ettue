@@ -1,0 +1,18 @@
+---
+- name: Install build dependencies.
+  package:
+    name:
+      - podman
+      - make
+    state: present
+  become: true
+
+- name: Update NAS config source file
+  template:
+    src: nas.bu.j2
+    dest: /tmp/nas.bu
+
+- name: Build NAS config
+  shell:
+    cmd: podman run --rm --interactive --security-opt label=disable --volume /tmp/nas.bu:/nas.bu quay.io/coreos/butane:release --pretty --strict /nas.bu
+    creates: /tmp/nas.ign
