@@ -6,4 +6,12 @@ all:
 
 build_server:
   hosts:
-    gdw.lan:
+    localhost:
+
+router:
+  hosts:
+    192.168.1.1:
+
+homelab:
+  hosts:
+    192.168.1.190

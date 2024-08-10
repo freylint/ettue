@@ -1,9 +1,8 @@
 ---
 
-- name: Update Homelab Igntion config
-  fetch:
-    src: /tmp/nas.ign
-    dest: /www/ignition/
-    flat: true
-    host: 192.168.1.190
-    force: yes
+- name: Back up existing igntion
+  copy: 
+    src: /www/ignition/nas.ign
+    dest: /www/ignition/nas.ign.old
+    remote_src: yes
+

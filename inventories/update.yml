@@ -1,13 +1,18 @@
 all:
   hosts:
-    nas.lan:
-    glw.lan:
-    gdw.lan:
     192.168.1.1:
-
+      ansible_user: root
+    192.168.1.190:
+      ansible_user: lint
+    localhost:
+      ansible_user: lint
+  vars:
+    ansible_connection: ssh
+  
 build_server:
   hosts:
-    gdw.lan:
+    localhost:
+      ansible_connection: local
 
 router:
   hosts:

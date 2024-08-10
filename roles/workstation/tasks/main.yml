@@ -14,5 +14,4 @@
 
 - name: Build NAS config
   shell:
-    cmd: podman run --rm --interactive --security-opt label=disable --volume /tmp/nas.bu:/nas.bu quay.io/coreos/butane:release --pretty --strict /nas.bu
-    creates: /tmp/nas.ign
+    cmd: podman run --rm --interactive --security-opt label=disable --volume /tmp/nas.bu:/nas.bu quay.io/coreos/butane:release --pretty --strict /nas.bu > /tmp/nas.ign
