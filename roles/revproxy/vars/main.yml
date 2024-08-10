@@ -1,6 +1,0 @@
-container_name: revproxy
-image: jc21/nginx-proxy-manager:latest
-restart_policy: yes
-  
-data_dir: /config/revproxy/data
-letsencrypt_dir: /config/revproxy/letsencrypt

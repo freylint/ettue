@@ -1,4 +1,0 @@
----
-name: NGinx Reverse Proxy 
-dependencies:
-  - docker

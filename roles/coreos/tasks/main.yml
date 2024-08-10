@@ -1,0 +1,17 @@
+---
+
+- name: Ensure Podman is running
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Podman (if needed)
+      package:
+        name: podman
+        state: present
+
+    - name: Start Podman service
+      service:
+        name: podman
+        state: started
+        enabled: yes

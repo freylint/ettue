@@ -1,7 +1,0 @@
-container_name: grocy
-PUID: 1000
-PGID: 1000
-TZ: "Etc/UTC"
-cfg_path: /config/grocy
-restart_policy: yes
-image: linuxserver/grocy

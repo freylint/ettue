@@ -15,22 +15,7 @@
   roles:
     - role: roles/hardened/
 
-- name: Update Reverse Proxy
-  hosts: revproxy
-  roles:
-    - roles/revproxy
-
-- name: Update DNS Server
-  hosts: adguard
-  roles:
-    - role: roles/adguard/
-
 - name: Update DynDNS Service
   hosts: dyndns
   roles:
     - role: roles/dyndns/
-
-- name: Update Grocy
-  hosts: grocy
-  roles:
-   - role: roles/grocy

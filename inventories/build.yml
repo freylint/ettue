@@ -1,0 +1,9 @@
+all:
+  hosts:
+    localhost:
+  vars:
+    ansible_connection: ssh
+
+build:
+  hosts:
+    localhost:

@@ -1,0 +1,4 @@
+---
+
+- name: Ensure podman is running
+  hosts: build
