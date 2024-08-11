@@ -3,7 +3,7 @@ all:
     192.168.1.1:
       ansible_user: root
     192.168.1.190:
-      ansible_user: lint
+      ansible_user: core
     localhost:
       ansible_user: lint
   vars:
@@ -20,4 +20,4 @@ router:
 
 homelab:
   hosts:
-    nas.lan:
+    192.168.1.190:

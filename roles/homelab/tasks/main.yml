@@ -1,5 +1,4 @@
 ---
 
 - name: Update Homelab via reboot
-  reboot:
-  become: true
+  raw: sudo systemctl reboot

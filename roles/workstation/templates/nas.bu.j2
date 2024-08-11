@@ -1,19 +1,50 @@
 variant: fcos
 version: 1.5.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAhyppaJ2Y+qVhjpE+WokE6869YaBYTNzQabsNsZMAod lint@gdw
 storage:
   files:
-    - path: /etc/containers/systemd/hello.container
+    - path: /etc/hostname
+      mode: 0644
       contents:
-        inline: |
-          [Unit]
-          Description=Hello Service
-          Wants=network-online.target
-          After=network-online.target
+        inline: homelab
+systemd:
+  units:
+    - name: mount-lv.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=My Custom Service
+        After=multi-user.target
 
-          [Container]
-          ContainerName=busybox1
-          Image=docker.io/busybox
-          Exec=/bin/sh -c "trap 'exit 0' INT TERM; while true; do echo Hello World; sleep 1; done"
+        [Service]
+        User=root
+        ExecStartPre=-/usr/bin/mkdir -m 2755 /mnt/mass
+        ExecStartPre=-/usr/bin/chown nobody:core /mnt/mass
+        ExecStart=/usr/bin/mount /dev/mass/mass /mnt/mass
 
-          [Install]
-          WantedBy=multi-user.target
+        [Install]
+        WantedBy=multi-user.target
+    - name: samba.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Network Share
+        After=multi-user.target
+        Wants=network-online.target
+        BindsTo=mount-lv.service
+        RequiresMountsFor=/mnt/mass
+
+        [Service]
+        ExecStartPre=-/usr/bin/podman kill samba
+        ExecStartPre=-/usr/bin/podman rm samba
+        ExecStartPre=/usr/bin/podman pull docker.io/dperson/samba:latest
+        ExecStart=/usr/bin/podman run --name samba -p 139:139 -p 445:445 -v /mnt/mass/export:/mount -d docker.io/dperson/samba:latest -p
+
+        ExecStop=/usr/bin/podman stop samba
+
+        [Install]
+        WantedBy=multi-user.target
