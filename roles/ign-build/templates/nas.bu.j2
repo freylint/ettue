@@ -4,7 +4,7 @@ passwd:
   users:
     - name: core
       ssh_authorized_keys:
-        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAhyppaJ2Y+qVhjpE+WokE6869YaBYTNzQabsNsZMAod lint@gdw
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCSn+TkGwYEzHYr1EaJBF+PTcpAzUCWTaBeYW3j0IXlVffQx012O/3XTgR0RqWeo/3rcr956aoaXnVxk7Zc5lgde21NHxpyiDY+HXW4jU2qOr9/BYs8Kzuxi3fbkLUsA5WdTvC1l64p3STpQ1ss5aeEkjHIgT0s/kbVUz4jpQppXcs3F3QWBUqu3ACuHFbWjSGlc2DUETCNPCBZJ8sT9GGIJz2VDWvEm11qznMkMolhPTAX7k1dWZooPwK0sEC5kToOjBujFbFKvA0QovwuEDAauQZgL3pz6I7K11aFWjE6aGKbbgeipJWoK9AihJfcDWtekxheeUYCMujmvvpOR92AimXSN24iYH84ouoPxEOplVv6Bsjgvi96jnigBYsnLwafzldfZuOF6MhSYXezsRFlakF1rJoTmxU1mChHXxvOY1ZWMYM0iy4Gq6FjPodY92hb+fYqiPBNGnAB7xzXoYYexp6OzCU2webB7gL72zV3Z+FpKB/JhPLVfoKy9mOh07k= lint@pop-os
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRNqEVGONxZqF5fhLvHXEmdP4bQVKIzXJsj+Kj36MVdLOeKRY9gXXgbOjeBuLzee54suY87uvFDPGvEaKZ9g9Lz0iIsVZw1N0zxXCavFxoS4vNGlP9+k/ulQGHeIXDBHnDt6zoH16rQkZI5hFxBFnbGF5oasPpaEBPp09dA077QWkmIBJmSfIZZlTB1R4XTRxUH6xz4dCBeogXH0TEBKFAc9jwWsy/GQyxkKisbOd4FKJfc14eROelF6fbvyjWiulOYEWz61ffI7t4NigEjbJcSxlz9FAC4HmHhMQbncThrUQYnlso3QnDuNSVYCPl/XWL2/feCGMDI2xQkFicu9Zrj8rRz3PaZMIdDcbo9ckFh8TTYV5334wEBlldXSMrSsKamDE4Arff7dDrJq9wcjNpovI12P9yQGWZQtyCe6F6G0hoFMctwsyIbIGHX3JrcB3STSC33k/tKnx5+ETjKRx3F6eiOFg64iKSLlEDbIvd6Ji3/i5o1M1uhoiivCw5oHk= batwife@batbook
 storage:
   files:
@@ -14,7 +14,16 @@ storage:
         inline: homelab
     - path: /usr/local/etc/smb-config.yml
       mode: 744
-      contents: "{{ %include config.yml.j2 % }}"
+      contents:
+        inline: '''
+        share:
+        - name: public
+          comment: Public Share
+          path: /data/public
+          browsable: yes
+          readonly: no
+          guestok: yes
+        '''
 systemd:
   units:
     - name: mount-lv.service

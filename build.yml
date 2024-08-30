@@ -1,0 +1,32 @@
+---
+
+- name: Build NAS Image
+  hosts: build
+  roles:
+    - role: roles/ign-build/
+
+- name: Build iPXE firmware
+  hosts: build
+  roles:
+    - role: roles/ipxe-build
+
+- name: Update RPI TFTP Server
+  hosts: rpi
+  roles:
+    - role: roles/ipxe-tftpd
+
+- name: Update RPI iPXE HTTP Server
+  hosts: rpi
+  roles:
+    - role: roles/ipxe-httpd
+
+- name: Update NAS Image
+  hosts: rpi
+  roles:
+    - role: roles/ign-upload/
+
+- name: Update homelab (via Reboot)
+  hosts: homelab
+  roles:
+    - role: roles/homelab-reboot/
+    

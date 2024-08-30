@@ -1,0 +1,24 @@
+---
+
+- name: Install BusyBox
+  apt:
+    name: busybox
+    state: present
+  become: yes
+
+- name: Create HTTPd Unit
+  template:
+    src: ipxe-httpd.unit
+    dest: /etc/systemd/system/httpd-ipxe.service
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: Enable the service
+  service:
+    name:  httpd-ipxe.service
+    enabled: true
+  become: yes

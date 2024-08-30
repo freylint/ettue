@@ -1,0 +1,22 @@
+---
+
+- name: Make directories
+  become: yes
+  file:
+    path: /srv/netboot
+    state: directory
+
+- name: Back up existing igntion
+  become: yes
+  copy: 
+    src: /srv/netboot/nas.ign
+    dest: /srv/netboot/nas.ign.old
+    remote_src: yes
+  ignore_errors: true
+
+- name: Fetch new ignition file
+  become: yes
+  copy: 
+    src: /tmp/nas.ign
+    dest: /srv/netboot/nas.ign
+  

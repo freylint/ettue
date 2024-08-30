@@ -1,0 +1,31 @@
+---
+
+- name: Make directories
+  file:
+    path: /srv/tftp
+    state: directory
+  become: yes
+
+- name: Install tftpd using apt
+  apt:
+    name: tftpd-hpa
+    state: present
+  become: yes
+
+- name: Update iPXE configuration file
+  template:
+    src: autoexec.ipxe.j2
+    dest: /srv/tftp/autoexec.ipxe
+  become: yes
+
+- name: Update IPXE firmware
+  copy:
+    src: /tmp/ipxe/src/bin-x86_64-efi/ipxe.efi
+    dest: /srv/tftp/ipxe.efi
+  become: yes
+
+- name: (Re)Start tftpd service
+  service:
+    name: tftpd-hpa
+    state: restarted
+  become: yes

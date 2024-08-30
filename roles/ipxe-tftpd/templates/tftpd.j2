@@ -1,0 +1,9 @@
+service tftpd
+{
+        socket_type  = stream
+        protocol     = tcp
+        wait         = yes
+        user         = nobody
+        server_args  = -s /srv/tftp -c
+        disable      = no
+}

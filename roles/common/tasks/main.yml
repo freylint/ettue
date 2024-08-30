@@ -1,0 +1,6 @@
+
+- name: Update APT Cache
+  apt:
+    update_cache: yes
+  changed_when: "ansible_date.modified > (ansible_date.today - 1)"
+  failed_when: "ansible_date.modified < (ansible_date.today - 1)"

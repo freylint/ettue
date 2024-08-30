@@ -1,0 +1,9 @@
+---
+
+- name: Clone iPXE repository
+  git:
+    repo: https://github.com/ipxe/ipxe.git
+    dest: /tmp/ipxe
+
+- name: Build iPXE firmware
+  command: make -C /tmp/ipxe/src -j bin-x86_64-efi/ipxe.efi
