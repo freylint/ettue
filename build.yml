@@ -27,6 +27,7 @@
 
 - name: Update homelab (via Reboot)
   hosts: homelab
+  gather_facts: no
   roles:
     - role: roles/homelab-reboot/
     

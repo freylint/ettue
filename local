@@ -1,6 +1,7 @@
 [all]
 192.168.1.1 ansible_user=root
 192.168.1.190 ansible_user=core
+192.168.1.140 ansible_user=gen
 localhost ansible_user=lint ansible_connection=ssh
 
 [build]
@@ -10,7 +11,7 @@ localhost ansible_connection=local
 192.168.1.1
 
 [homelab]
-192.168.1.190
+192.168.1.190 
 
 [rpi]
-192.168.1.140 ansible_user=gen
+192.168.1.140
