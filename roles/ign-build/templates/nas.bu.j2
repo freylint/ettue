@@ -12,18 +12,17 @@ storage:
       mode: 0644
       contents:
         inline: homelab
-    - path: /usr/local/etc/smb-config.yml
+    - path: /etc/smb-config.yml
       mode: 744
       contents:
-        inline: '''
-        share:
-        - name: public
-          comment: Public Share
-          path: /data/public
-          browsable: yes
-          readonly: no
-          guestok: yes
-        '''
+        inline: |
+          share:
+          - name: public
+            comment: Public Share
+            path: /data/public
+            browsable: yes
+            readonly: no
+            guestok: yes
 systemd:
   units:
     - name: mount-lv.service
@@ -46,15 +45,14 @@ systemd:
       contents: |
         [Unit]
         Description=Network Share
-        After=multi-user.target
-        Wants=network-online.target
-        BindsTo=mount-lv.service
+        After=multi-user.target network-online.target
+        Wants=network-online.target mount-lv.service
         RequiresMountsFor=/mnt/mass
 
         [Service]
-        ExecStartPre=/usr/bin/podman pull docker.io/dperson/samba:latest
-        ExecStartPre=cat
-        ExecStart=/usr/bin/podman run --replace --network host -v /mnt/mass/srv/samba:/data:z --name samba crazymax/samba
+        ExecStartPre=/usr/bin/podman pull docker.io/crazymax/samba:4.19.6
+        ExecStartPre=/usr/bin/cp -rf /etc/smb-config.yml /mnt/mass/srv/samba/config.yml
+        ExecStart=/usr/bin/podman run --replace --network host -v /mnt/mass/srv/samba:/data:z --name samba docker.io/crazymax/samba:4.19.6
 
         ExecStop=/usr/bin/podman stop samba
 
