@@ -1,0 +1,53 @@
+variant: fcos
+version: 1.5.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAhyppaJ2Y+qVhjpE+WokE6869YaBYTNzQabsNsZMAod lint@gdw
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRNqEVGONxZqF5fhLvHXEmdP4bQVKIzXJsj+Kj36MVdLOeKRY9gXXgbOjeBuLzee54suY87uvFDPGvEaKZ9g9Lz0iIsVZw1N0zxXCavFxoS4vNGlP9+k/ulQGHeIXDBHnDt6zoH16rQkZI5hFxBFnbGF5oasPpaEBPp09dA077QWkmIBJmSfIZZlTB1R4XTRxUH6xz4dCBeogXH0TEBKFAc9jwWsy/GQyxkKisbOd4FKJfc14eROelF6fbvyjWiulOYEWz61ffI7t4NigEjbJcSxlz9FAC4HmHhMQbncThrUQYnlso3QnDuNSVYCPl/XWL2/feCGMDI2xQkFicu9Zrj8rRz3PaZMIdDcbo9ckFh8TTYV5334wEBlldXSMrSsKamDE4Arff7dDrJq9wcjNpovI12P9yQGWZQtyCe6F6G0hoFMctwsyIbIGHX3JrcB3STSC33k/tKnx5+ETjKRx3F6eiOFg64iKSLlEDbIvd6Ji3/i5o1M1uhoiivCw5oHk= batwife@batbook
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: homelab
+    - path: /usr/local/etc/smb-config.yml
+      mode: 744
+      contents: "{{ %include config.yml.j2 % }}"
+systemd:
+  units:
+    - name: mount-lv.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=My Custom Service
+        After=multi-user.target
+
+        [Service]
+        User=root
+        ExecStartPre=-/usr/bin/mkdir -m 2755 /mnt/mass
+        ExecStartPre=-/usr/bin/chown nobody:core /mnt/mass
+        ExecStart=/usr/bin/mount /dev/mass/mass /mnt/mass
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: samba.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Network Share
+        After=multi-user.target
+        Wants=network-online.target
+        BindsTo=mount-lv.service
+        RequiresMountsFor=/mnt/mass
+
+        [Service]
+        ExecStartPre=/usr/bin/podman pull docker.io/dperson/samba:latest
+        ExecStartPre=cat
+        ExecStart=/usr/bin/podman run --replace --network host -v /mnt/mass/srv/samba:/data:z --name samba crazymax/samba
+
+        ExecStop=/usr/bin/podman stop samba
+
+        [Install]
+        WantedBy=multi-user.target

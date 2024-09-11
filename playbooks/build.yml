@@ -1,0 +1,7 @@
+---
+
+- name: Build CoreOS Image
+  hosts: build
+  roles:
+    - role: roles/server/
+    
